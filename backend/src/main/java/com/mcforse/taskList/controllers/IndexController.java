@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
     // Forwards all routes to FrontEnd except: '/', '/index.html', '/api', '/api/**'
     // Required because of 'mode: history' usage in frontend routing
-    @RequestMapping("{?:(?:(?!static|\\.).)*}/**")
+    @RequestMapping("{?:(?:(?!api|static|\\.).)*}/**")
     public String redirect() {
         log.info("URL entered directly into the Browser, so we need to redirect...");
         return "forward:/";
