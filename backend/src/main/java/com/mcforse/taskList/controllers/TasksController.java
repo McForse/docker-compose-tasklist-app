@@ -2,15 +2,12 @@ package com.mcforse.taskList.controllers;
 
 import com.mcforse.taskList.dto.AddTaskRequest;
 import com.mcforse.taskList.dto.UpdateTaskRequest;
-import com.mcforse.taskList.exceptions.NotFoundException;
 import com.mcforse.taskList.models.Task;
 import com.mcforse.taskList.services.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
@@ -44,6 +41,7 @@ public class TasksController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @CrossOrigin
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteTask(@PathVariable long id) {
         service.deleteById(id);
