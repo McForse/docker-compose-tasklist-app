@@ -28,6 +28,7 @@
         <Button
           type="submit"
           class="bg-green-500 text-white hover:bg-green-600"
+          @click="submit"
         >
           Create
         </Button>
@@ -41,7 +42,7 @@ import Button from '@/components/ui/Button'
 import CardFooter from '@/components/ui/card/CardFooter'
 import CardBody from '@/components/ui/card/CardBody'
 import Modal from '@/components/ui/Modal'
-import Input from '@/components/ui/card/Input'
+import Input from '@/components/ui/Input'
 
 export default {
   name: 'AddTaskModal',
@@ -52,7 +53,7 @@ export default {
     CardBody,
     CardFooter
   },
-  emits: ['close'],
+  emits: ['close', 'addTask'],
   data() {
     return {
       title: '',
@@ -62,6 +63,18 @@ export default {
   methods: {
     close() {
       this.$emit('close')
+    },
+    submit() {
+      if (this.title.trim() === '' || this.note.trim() === '') {
+        return
+      }
+
+      this.$emit('addTask', {
+        title: this.title.trim(),
+        note: this.note.trim()
+      })
+
+      this.close()
     }
   }
 }

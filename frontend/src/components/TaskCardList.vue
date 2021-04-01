@@ -37,6 +37,7 @@
   <AddTaskModal
     v-if="modal"
     @close="modal = false"
+    @add-task="addTask"
   />
 </template>
 
@@ -44,6 +45,7 @@
 import TaskCard from '@/components/TaskCard'
 import Button from '@/components/ui/Button'
 import AddTaskModal from '@/components/AddTaskModal'
+import { addTask, fetchTasks, removeTask, updateTaskStatus } from '@/services/api/tasksService'
 
 export default {
   name: 'TaskCardList',
@@ -65,31 +67,27 @@ export default {
           filter: i => i.complete === true
         }
       ],
-      tasks: [
-        {
-          id: 1,
-          complete: false,
-          title: 'First task',
-          note: 'Some text here'
-        },
-        {
-          id: 2,
-          complete: true,
-          title: 'Second task',
-          note: 'Some text here'
-        }
-      ]
+      tasks: []
     }
   },
+  async mounted() {
+    this.tasks = await fetchTasks()
+  },
   methods: {
-    updateTaskStatus({ id, status }) {
+    async updateTaskStatus({ id, status }) {
       this.tasks.find(i => i.id === id).complete = status
+      await updateTaskStatus(id, status)
     },
     sortTasks(filter) {
       return this.tasks.filter(filter)
     },
-    removeTask(id) {
+    async addTask(task) {
+      const newTask = await addTask(task)
+      this.tasks.push(newTask)
+    },
+    async removeTask(id) {
       this.tasks = this.tasks.filter(i => i.id !== id)
+      await removeTask(id)
     }
   }
 }

@@ -13,7 +13,7 @@
       :placeholder="placeholder"
       :disabled="disabled"
       :required="required"
-      @input="$emit('input', $event.target.value)"
+      @input="$emit('update:modelValue', $event.target.value)"
     >
   </label>
 </template>
@@ -41,6 +41,6 @@ export default {
     disabled: Boolean,
     required: Boolean
   },
-  emits: ['input']
+  emits: ['update:modelValue']
 }
 </script>

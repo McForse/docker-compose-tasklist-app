@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 h-screen">
+  <div class="bg-gray-100 h-full min-h-screen">
     <Container>
       <h1 class="text-center text-4xl font-semibold mb-5">
         Task List
