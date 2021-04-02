@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: mysql
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - 3306:3306
+
+  webapp:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - ${WEB_PORT}:${WEB_PORT}
+    environment:
+      - SERVER_PORT=${WEB_PORT}
+      - SPRING_DATASOURCE_URL=${MYSQL_DB_URL}
+      - SPRING_DATASOURCE_USERNAME=${MYSQL_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
