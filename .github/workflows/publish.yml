@@ -1,0 +1,19 @@
+name: publish
+
+on: [push]
+
+jobs:
+  publish-docker-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Building a Docker image
+        run: |
+          echo $CR_PAT | docker login ghcr.io -u McForse --password-stdin
+          docker build . --tag ghcr.io/mcforse/docker-compose-tasklist-app:latest
+          docker run ghcr.io/mcforse/docker-compose-tasklist-app:latest
+          docker push ghcr.io/mcforse/docker-compose-tasklist-app:latest
+        env:
+          CR_PAT: ${{ secrets.CR_PAT }}
