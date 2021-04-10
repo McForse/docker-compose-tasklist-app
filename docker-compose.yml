@@ -12,7 +12,7 @@ services:
       - 3306:3306
 
   webapp:
-    build: .
+    image: ghcr.io/mcforse/docker-compose-tasklist-app:latest
     restart: unless-stopped
     depends_on:
       - db
