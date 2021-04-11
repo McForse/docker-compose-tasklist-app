@@ -32,7 +32,7 @@ Exploring the work of docker compose using the full stack task list application 
 - Java 15
 - Spring Boot
 - Spring Data JPA
-- MySQL
+- PostgreSQL
 
 ### Frontend
 
